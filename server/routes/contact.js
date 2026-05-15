@@ -31,9 +31,6 @@ router.post('/', async (req, res) => {
     const { name, email, message } = req.body
     if (!name || !email || !message) return res.status(400).json({ error: 'Missing fields' })
 
-    const contact = new Contact({ name, email, message })
-    await contact.save()
-
     const transporter = createTransport()
     if (!transporter) {
       return res.status(500).json({
@@ -41,7 +38,7 @@ router.post('/', async (req, res) => {
       })
     }
 
-    void transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"Portfolio Contact Form" <${GMAIL_USER}>`,
       to: CONTACT_RECEIVER_EMAIL,
       replyTo: email,
@@ -58,12 +55,16 @@ router.post('/', async (req, res) => {
           </div>
         </div>
       `,
-    }).catch((mailError) => {
-      console.error('Gmail delivery failed:', mailError)
     })
+
+    const contact = new Contact({ name, email, message })
+    await contact.save()
+
+    console.log('Gmail delivery succeeded:', info.messageId)
 
     res.status(201).json({ success: true })
   } catch (err) {
+    console.error('Contact submission failed:', err)
     res.status(500).json({ error: err.message })
   }
 })
