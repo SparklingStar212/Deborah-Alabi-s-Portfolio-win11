@@ -17,8 +17,11 @@ function createTransport() {
     service: 'gmail',
     auth: {
       user: GMAIL_USER,
-      pass: GMAIL_APP_PASSWORD,
+      pass: GMAIL_APP_PASSWORD.replace(/\s+/g, ''),
     },
+    connectionTimeout: 30000,
+    greetingTimeout: 30000,
+    socketTimeout: 30000,
   })
 }
 
@@ -38,7 +41,7 @@ router.post('/', async (req, res) => {
       })
     }
 
-    await transporter.sendMail({
+    void transporter.sendMail({
       from: `"Portfolio Contact Form" <${GMAIL_USER}>`,
       to: CONTACT_RECEIVER_EMAIL,
       replyTo: email,
@@ -55,6 +58,8 @@ router.post('/', async (req, res) => {
           </div>
         </div>
       `,
+    }).catch((mailError) => {
+      console.error('Gmail delivery failed:', mailError)
     })
 
     res.status(201).json({ success: true })

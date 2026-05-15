@@ -10,6 +10,14 @@ const apiClient = axios.create({
   },
 })
 
+const contactApiClient = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 45000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
 // Add token to requests if available
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
@@ -39,7 +47,7 @@ export const api = {
   updateAbout: (about) => apiClient.put('/api/about', about),
 
   // Contact endpoints
-  submitContact: (contact) => apiClient.post('/api/contact', contact),
+  submitContact: (contact) => contactApiClient.post('/api/contact', contact),
 
   // Test endpoints
   testConnection: () => apiClient.get('/api/test'),
