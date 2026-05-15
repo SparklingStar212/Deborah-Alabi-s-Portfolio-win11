@@ -506,7 +506,7 @@ body.dark .win11-taskbar-container {
   font-size: 12px;
   line-height: 1.15;
   text-align: right;
-  min-width: 50px;
+  min-width: 60px;
 }
 
 .taskbar-tray-group {
