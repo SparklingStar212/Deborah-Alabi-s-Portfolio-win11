@@ -510,7 +510,7 @@ body.dark .win11-taskbar-container {
 }
 
 .taskbar-tray-group {
-  gap: 2px;
+  gap: 1px;
   grid-column: 3;
   justify-self: end;
 }
@@ -1433,13 +1433,13 @@ body:not(.dark) .admin-password-toggle:hover {
 @media (max-width: 520px) {
   .win11-taskbar-container {
     height: 44px;
-    padding: 0 6px;
+    padding: 0 4px;
     align-items: center;
   }
 
   /* Keep the centered app group from overlapping the tray by reserving space */
   .taskbar-center-group {
-    gap: 6px;
+    gap: 4px;
     width: auto;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -1452,32 +1452,32 @@ body:not(.dark) .admin-password-toggle:hover {
   }
 
   .task-icon-item {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 8px;
   }
 
   .task-icon-item svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
 
   .task-icon-wrapper {
-    margin: 0 4px;
+    margin: 0 2px;
   }
 
   .start-btn {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
   }
 
   .taskbar-tray-group {
-    gap: 6px;
+    gap: 4px;
   }
 
   .tray-section {
     height: 32px;
-    padding: 0 6px;
+    padding: 0 4px;
   }
 
   .win11-notification-center {
@@ -1502,16 +1502,16 @@ body:not(.dark) .admin-password-toggle:hover {
   }
 
   .task-icon-item {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
   }
 
   .task-icon-item svg {
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
   }
 
   .tray-section {
-    padding: 0 4px;
+    padding: 0 3px;
   }
 }
