@@ -15,7 +15,7 @@ if (GMAIL_USER && GMAIL_APP_PASSWORD && CONTACT_RECEIVER_EMAIL) {
     service: 'gmail',
     auth: {
       user: GMAIL_USER,
-      pass: GMAIL_APP_PASSWORD.replace(/\s+/g, ''),
+      pass: GMAIL_APP_PASSWORD,
     },
     connectionTimeout: 30000,
     greetingTimeout: 30000,
