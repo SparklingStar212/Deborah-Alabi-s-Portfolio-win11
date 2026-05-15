@@ -1561,12 +1561,19 @@ body:not(.dark) .admin-password-toggle:hover {
 @media (max-width: 600px) {
   .win11-taskbar-container {
     padding: 0 8px;
-    height: 44px; /* Slightly thinner profile for mobile optimization */
+    height: 44px;
+    /* Ensure flexbox handles the distribution directly */
+    display: flex;
+    justify-content: space-between; 
   }
 
-  /* 1. Recenter app items and prevent text collisions */
+  /* 🚨 THE CRITICAL FIX: Break the absolute positioning loop */
   .taskbar-center-group {
-    gap: 4px; /* Tighter layout boundaries */
+    position: static !important;
+    transform: none !important;
+    gap: 6px;
+    margin-right: auto; /* Smoothly pushes the system tray to the far right */
+    padding-left: 4px;   /* Prevents the Start button from hugging the screen edge */
   }
 
   .task-icon-item {
@@ -1574,31 +1581,36 @@ body:not(.dark) .admin-password-toggle:hover {
     height: 36px;
   }
 
-  /* 2. Scale back secondary metrics from system tray to recover width */
+  /* Keep the tray grouped neatly on the right */
+  .taskbar-tray-group {
+    margin-left: Holland; /* Bypasses any layout conflicts */
+    gap: 2px;
+  }
+
   .taskbar-divider-v {
-    display: none; /* Strip structural dividers to save structural horizontal space */
+    display: none; 
   }
 
   .taskbar-date {
-    display: none !important; /* Drops the date string row completely */
+    display: none !important; 
   }
 
   .clock-section {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
   }
 
   .tray-section {
-    padding: 4px 6px;
+    padding: 4px 4px;
   }
 
-  /* 3. Center notifications layout window on device screens */
+  /* Fix notification positioning relative to the new layout boundaries */
   .win11-notification-center {
     position: fixed;
-    bottom: 52px;
+    bottom: 50px;
     right: 8px;
     left: 8px;
-    width: auto; /* Break out of default width limits to stretch nicely across viewport */
+    width: auto;
     max-width: none;
     border-radius: 8px;
   }
