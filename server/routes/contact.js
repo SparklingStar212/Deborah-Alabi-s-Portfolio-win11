@@ -7,12 +7,11 @@ const GMAIL_USER = process.env.GMAIL_USER
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD
 const CONTACT_RECEIVER_EMAIL = process.env.CONTACT_RECEIVER_EMAIL || GMAIL_USER
 
-function createTransport() {
-  if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !CONTACT_RECEIVER_EMAIL) {
-    return null
-  }
+// Create the transporter ONCE at the module level (Singleton Pattern)
+let transporter = null
 
-  return nodemailer.createTransport({
+if (GMAIL_USER && GMAIL_APP_PASSWORD && CONTACT_RECEIVER_EMAIL) {
+  transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: GMAIL_USER,
@@ -22,21 +21,29 @@ function createTransport() {
     greetingTimeout: 30000,
     socketTimeout: 30000,
   })
+} else {
+  // Warn on server startup instead of waiting for a user request to fail
+  console.warn('⚠️ Nodemailer Warning: Missing email environment variables in server/.env.')
 }
 
 // POST /api/contact
 router.post('/', async (req, res) => {
   try {
     const { name, email, message } = req.body
-    if (!name || !email || !message) return res.status(400).json({ error: 'Missing fields' })
 
-    const transporter = createTransport()
+    // 1. Basic Validation
+    if (!name || !email || !message) {
+      return res.status(400).json({ error: 'Missing required fields' })
+    }
+
+    // 2. Check Configuration Status
     if (!transporter) {
       return res.status(500).json({
-        error: 'Email delivery is not configured. Set GMAIL_USER, GMAIL_APP_PASSWORD, and CONTACT_RECEIVER_EMAIL in server/.env.',
+        error: 'Email delivery service is currently unavailable. Please try again later.',
       })
     }
 
+    // 3. Dispatch Email
     const info = await transporter.sendMail({
       from: `"Portfolio Contact Form" <${GMAIL_USER}>`,
       to: CONTACT_RECEIVER_EMAIL,
@@ -57,11 +64,14 @@ router.post('/', async (req, res) => {
     })
 
     console.log('Gmail delivery succeeded:', info.messageId)
-
     return res.status(201).json({ success: true })
+
   } catch (err) {
-    console.error('Contact submission failed:', err)
-    res.status(500).json({ error: err.message })
+    // Keep detailed errors safe on your terminal logs
+    console.error('Contact submission failed internally:', err)
+
+    // Give the frontend a safe response
+    return res.status(500).json({ error: 'Server encountered an error processing your message.' })
   }
 })
 
