@@ -379,7 +379,8 @@ body.dark .win-desktop-area {
   bottom: env(safe-area-inset-bottom, 0);
   height: 48px;
   display: grid;
-  grid-template-columns: 1fr auto 1fr; /* left spacer, centered apps, right tray */
+  /* left spacer, flexible centered apps, right spacer */
+  grid-template-columns: 1fr minmax(220px, 1fr) 1fr;
   align-items: center;
   padding: 0 12px;
   background: rgba(255, 255, 255, 0.6);
@@ -401,11 +402,13 @@ body.dark .win11-taskbar-container {
 }
 
 .taskbar-center-group {
-  gap: 4px;
-  flex: 0 1 auto;
-  max-width: calc(100% - 220px); /* reserve space for tray and paddings */
+  gap: 8px;
   grid-column: 2; /* center column */
-  justify-self: center;
+  justify-self: stretch;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* spread icons evenly */
 }
 
 .taskbar-divider-v {
@@ -1440,10 +1443,11 @@ body:not(.dark) .admin-password-toggle:hover {
   /* Keep the centered app group from overlapping the tray by reserving space */
   .taskbar-center-group {
     gap: 6px;
-    max-width: calc(100% - 140px);
+    width: auto;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 4px;
+    justify-content: flex-start; /* allow horizontal scrolling on small screens */
   }
 
   .taskbar-center-group::-webkit-scrollbar {
@@ -1471,7 +1475,6 @@ body:not(.dark) .admin-password-toggle:hover {
   }
 
   .taskbar-tray-group {
-    right: 6px;
     gap: 6px;
   }
 
