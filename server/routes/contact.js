@@ -12,17 +12,19 @@ let transporter = null
 
 if (GMAIL_USER && GMAIL_APP_PASSWORD && CONTACT_RECEIVER_EMAIL) {
   transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // Upgrades the connection to SSL/TLS immediately
     auth: {
       user: GMAIL_USER,
-      pass: GMAIL_APP_PASSWORD,
+      pass: GMAIL_APP_PASSWORD.replace(/\s+/g, ''), // Cleans up any Google app password spaces
     },
+    family: 4, // 👈 THE FIX: Forces Nodemailer to resolve over IPv4 only, bypassing Render's IPv6 block
     connectionTimeout: 30000,
     greetingTimeout: 30000,
     socketTimeout: 30000,
   })
 } else {
-  // Warn on server startup instead of waiting for a user request to fail
   console.warn('⚠️ Nodemailer Warning: Missing email environment variables in server/.env.')
 }
 
@@ -69,10 +71,10 @@ router.post('/', async (req, res) => {
   } catch (err) {
     console.error('Contact submission failed internally:', err)
 
-    // TEMPORARY: Send the real error to the browser so we can see it
+    // Keeps the real error visible in the network tab temporarily for verification
     return res.status(500).json({
       error: err.message,
-      code: err.code // This might say something like 'EAUTH' or 'ENOTFOUND'
+      code: err.code
     })
   }
 })
