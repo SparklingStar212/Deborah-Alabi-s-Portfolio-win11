@@ -13,6 +13,15 @@ const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const ADMIN_PASSWORD_SALT = process.env.ADMIN_PASSWORD_SALT;
 
+const aboutSeed = {
+  bio: "Hi, I'm Deborah Alabi, a software developer passionate about polished user experiences and practical backend systems.",
+  skills: ['JavaScript', 'React', 'Node.js', 'Express', 'MongoDB'],
+  contact: {
+    email: 'deborah@example.com',
+    location: 'Nigeria',
+  },
+}
+
 function hashPassword(password) {
   return crypto.scryptSync(password, ADMIN_PASSWORD_SALT, 64).toString('hex');
 }
@@ -50,6 +59,11 @@ mongoose
         { upsert: true }
       )
       console.log(`Admin user ready -> username: ${ADMIN_USERNAME}`)
+    }).catch(() => { })
+
+    import('./models/About.js').then(async ({ default: About }) => {
+      await About.updateOne({}, { $set: aboutSeed }, { upsert: true })
+      console.log('About profile ready in MongoDB')
     }).catch(() => { })
   })
   .catch((error) => {
