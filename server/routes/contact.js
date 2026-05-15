@@ -67,11 +67,13 @@ router.post('/', async (req, res) => {
     return res.status(201).json({ success: true })
 
   } catch (err) {
-    // Keep detailed errors safe on your terminal logs
     console.error('Contact submission failed internally:', err)
 
-    // Give the frontend a safe response
-    return res.status(500).json({ error: 'Server encountered an error processing your message.' })
+    // TEMPORARY: Send the real error to the browser so we can see it
+    return res.status(500).json({
+      error: err.message,
+      code: err.code // This might say something like 'EAUTH' or 'ENOTFOUND'
+    })
   }
 })
 
