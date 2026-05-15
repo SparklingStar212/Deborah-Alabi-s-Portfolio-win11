@@ -1424,3 +1424,90 @@ body:not(.dark) .admin-password-toggle:hover {
     padding: 0 8px;
   }
 }
+
+/* Mobile / small-screen taskbar adjustments to prevent icon overlap */
+@media (max-width: 520px) {
+  .win11-taskbar-container {
+    height: 44px;
+    padding: 0 6px;
+    align-items: center;
+  }
+
+  /* Keep the centered app group from overlapping the tray by reserving space */
+  .taskbar-center-group {
+    gap: 6px;
+    max-width: calc(100% - 140px);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+
+  .taskbar-center-group::-webkit-scrollbar {
+    display: none;
+  }
+
+  .task-icon-item {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+
+  .task-icon-item svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .task-icon-wrapper {
+    margin: 0 4px;
+  }
+
+  .start-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .taskbar-tray-group {
+    right: 6px;
+    gap: 6px;
+  }
+
+  .tray-section {
+    height: 32px;
+    padding: 0 6px;
+  }
+
+  .win11-notification-center {
+    right: 6px;
+    bottom: 52px;
+    width: 260px;
+  }
+
+  .clock-section span:first-child {
+    font-size: 11px;
+  }
+
+  .active-indicator {
+    bottom: 2px;
+    height: 2px;
+  }
+}
+
+@media (max-width: 360px) {
+  .taskbar-center-group {
+    max-width: calc(100% - 110px);
+  }
+
+  .task-icon-item {
+    width: 32px;
+    height: 32px;
+  }
+
+  .task-icon-item svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .tray-section {
+    padding: 0 4px;
+  }
+}
