@@ -1,5 +1,4 @@
 import express from 'express'
-import Contact from '../models/Contact.js'
 import nodemailer from 'nodemailer'
 
 const router = express.Router()
@@ -57,12 +56,9 @@ router.post('/', async (req, res) => {
       `,
     })
 
-    const contact = new Contact({ name, email, message })
-    await contact.save()
-
     console.log('Gmail delivery succeeded:', info.messageId)
 
-    res.status(201).json({ success: true })
+    return res.status(201).json({ success: true })
   } catch (err) {
     console.error('Contact submission failed:', err)
     res.status(500).json({ error: err.message })
