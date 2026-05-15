@@ -506,10 +506,7 @@ body.dark .win11-taskbar-container {
   font-size: 12px;
   line-height: 1.15;
   text-align: right;
-}
-
-.tray-clock {
-  min-width: 80px;
+  min-width: 50px;
 }
 
 .taskbar-tray-group {
