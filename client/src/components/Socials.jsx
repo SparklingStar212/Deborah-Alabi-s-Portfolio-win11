@@ -7,9 +7,9 @@ import XIcon from './XIcon';
 
 export default function Socials() {
   const links = [
-    { id: 'github', label: 'GitHub', url: 'https://github.com', icon: <GithubIcon size={20} />, color: '#ffffff' },
-    { id: 'linkedin', label: 'LinkedIn', url: 'https://linkedin.com', icon: <LinkedinIcon size={20} />, color: '#0077b5' },
-    { id: 'twitter', label: 'Twitter', url: 'https://twitter.com', icon: <XIcon size={20} />, color: '#1da1f2' },
+    { id: 'github', label: 'GitHub', url: 'https://github.com/SparklingStar212', icon: <GithubIcon size={20} />, color: '#ffffff' },
+    { id: 'linkedin', label: 'LinkedIn', url: 'https://www.linkedin.com/in/deborah-alabi-3250ba384/', icon: <LinkedinIcon size={20} />, color: '#0077b5' },
+    { id: 'twitter', label: 'Twitter', url: 'https://x.com/alabi_debo55272', icon: <XIcon size={20} />, color: '#1da1f2' },
   ]
 
   const winBlue = '#60cdff'

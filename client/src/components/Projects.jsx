@@ -11,7 +11,8 @@ export default function Projects() {
     title: 'Windows 11 Portfolio',
     description: 'A desktop-style interactive portfolio built with React, Express, and MongoDB.',
     tech: ['React', 'Express', 'MongoDB', 'CSS'],
-    link: 'https://github.com/',
+    githubLink: 'https://github.com/',
+    vercelLink: 'https://vercel.com/',
   }
 
   // Theme Constants
@@ -46,14 +47,26 @@ export default function Projects() {
               <div className="project-icon-wrapper">
                 <Folder size={24} color="#f9d348" fill="#f9d348" fillOpacity={0.2} />
               </div>
-              <a
-                href={sampleProject.link}
-                target="_blank"
-                rel="noreferrer"
-                className="project-link-icon"
-              >
-                <ExternalLink size={14} color={theme.accent} />
-              </a>
+              <div style={{ display: 'flex', gap: 6 }}>
+                <a
+                  href={sampleProject.githubLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="project-link-icon"
+                  aria-label="Open GitHub link"
+                >
+                  <ExternalLink size={14} color={theme.accent} />
+                </a>
+                <a
+                  href={sampleProject.vercelLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="project-link-icon"
+                  aria-label="Open Vercel link"
+                >
+                  <ExternalLink size={14} color={theme.accent} />
+                </a>
+              </div>
             </div>
 
             <div className="project-info">
@@ -81,14 +94,30 @@ export default function Projects() {
                 <div className="project-icon-wrapper">
                   <Folder size={24} color="#f9d348" fill="#f9d348" fillOpacity={0.2} />
                 </div>
-                <a
-                  href={p.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="project-link-icon"
-                >
-                  <ExternalLink size={14} color={theme.accent} />
-                </a>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {(p.githubLink || p.link) && (
+                    <a
+                      href={p.githubLink || p.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="project-link-icon"
+                      aria-label="Open GitHub link"
+                    >
+                      <ExternalLink size={14} color={theme.accent} />
+                    </a>
+                  )}
+                  {p.vercelLink && (
+                    <a
+                      href={p.vercelLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="project-link-icon"
+                      aria-label="Open Vercel link"
+                    >
+                      <ExternalLink size={14} color={theme.accent} />
+                    </a>
+                  )}
+                </div>
               </div>
 
               <div className="project-info">
@@ -98,6 +127,18 @@ export default function Projects() {
                     {p.description}
                   </p>
                 )}
+                <div style={{ display: 'flex', gap: 8, marginBottom: 10, flexWrap: 'wrap' }}>
+                  {(p.githubLink || p.link) && (
+                    <a href={p.githubLink || p.link} target="_blank" rel="noreferrer" className="all-apps-btn" style={{ textDecoration: 'none' }}>
+                      GitHub
+                    </a>
+                  )}
+                  {p.vercelLink && (
+                    <a href={p.vercelLink} target="_blank" rel="noreferrer" className="all-apps-btn" style={{ textDecoration: 'none' }}>
+                      Vercel
+                    </a>
+                  )}
+                </div>
                 {p.tech && (
                   <div className="project-tech-tags">
                     {p.tech.map((t, index) => (

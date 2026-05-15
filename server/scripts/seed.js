@@ -16,38 +16,11 @@ function hashPassword(password) {
   return crypto.scryptSync(password, ADMIN_PASSWORD_SALT, 64).toString('hex')
 }
 
-const projectSeeds = [
-  {
-    title: 'Windows 11 Portfolio',
-    description: 'A desktop-style interactive portfolio built with React and Express.',
-    tech: ['React', 'Express', 'MongoDB', 'CSS'],
-    link: 'https://github.com/',
-  },
-  {
-    title: 'Student Result Tracker',
-    description: 'A simple dashboard for managing student records, results, and class performance.',
-    tech: ['React', 'Node.js', 'MongoDB'],
-    link: 'https://github.com/',
-  },
-  {
-    title: 'Task Manager Clone',
-    description: 'A productivity app for tracking tasks with categories and status.',
-    tech: ['React', 'Node.js', 'MongoDB'],
-    link: 'https://github.com/',
-  },
-  {
-    title: 'Weather Dashboard',
-    description: 'A weather analytics dashboard with city search and trend charts.',
-    tech: ['React', 'Chart.js', 'REST API'],
-    link: 'https://github.com/',
-  },
-]
-
 const aboutSeed = {
   bio: "Hi, I'm Deborah Alabi, a software developer passionate about polished user experiences and practical backend systems.",
-  skills: ['JavaScript', 'React', 'Node.js', 'Express', 'MongoDB'],
+  skills: ['JavaScript', 'React', 'Node.js', 'Express', 'MongoDB', 'CSS', 'HTML'],
   contact: {
-    email: 'deborah@example.com',
+    email: 'deborahalabi49@gmail.com',
     location: 'Nigeria',
   },
 }
@@ -67,7 +40,7 @@ async function seed() {
 
   const existingProjects = await Project.countDocuments()
   if (existingProjects === 0) {
-    await Project.insertMany(projectSeeds)
+    // await Project.insertMany(projectSeeds)
   }
 
   console.log('✓ Seed complete')

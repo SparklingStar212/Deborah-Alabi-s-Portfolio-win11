@@ -9,7 +9,8 @@ const emptyForm = {
   title: '',
   description: '',
   tech: '',
-  link: '',
+  githubLink: '',
+  vercelLink: '',
 }
 
 export default function Admin() {
@@ -36,7 +37,8 @@ export default function Admin() {
       title: project.title || '',
       description: project.description || '',
       tech: Array.isArray(project.tech) ? project.tech.join(', ') : '',
-      link: project.link || '',
+      githubLink: project.githubLink || project.link || '',
+      vercelLink: project.vercelLink || '',
     })
     setStatus(null)
   }
@@ -53,7 +55,8 @@ export default function Admin() {
         .split(',')
         .map((item) => item.trim())
         .filter(Boolean),
-      link: form.link.trim(),
+      githubLink: form.githubLink.trim(),
+      vercelLink: form.vercelLink.trim(),
     }
 
     try {
@@ -162,9 +165,15 @@ export default function Admin() {
             />
             <input
               className="win-input"
-              placeholder="Project link"
-              value={form.link}
-              onChange={(e) => setForm((prev) => ({ ...prev, link: e.target.value }))}
+              placeholder="GitHub link"
+              value={form.githubLink}
+              onChange={(e) => setForm((prev) => ({ ...prev, githubLink: e.target.value }))}
+            />
+            <input
+              className="win-input"
+              placeholder="Vercel link"
+              value={form.vercelLink}
+              onChange={(e) => setForm((prev) => ({ ...prev, vercelLink: e.target.value }))}
             />
           </div>
 
@@ -226,6 +235,19 @@ export default function Admin() {
                     ))}
                   </div>
                 )}
+
+                <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
+                  {project.githubLink && (
+                    <a href={project.githubLink} target="_blank" rel="noreferrer" className="all-apps-btn" style={{ textDecoration: 'none' }}>
+                      GitHub
+                    </a>
+                  )}
+                  {project.vercelLink && (
+                    <a href={project.vercelLink} target="_blank" rel="noreferrer" className="all-apps-btn" style={{ textDecoration: 'none' }}>
+                      Vercel
+                    </a>
+                  )}
+                </div>
               </div>
             ))}
           </div>

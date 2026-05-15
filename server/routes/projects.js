@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 // POST /api/projects
 router.post('/', requireAuth, async (req, res) => {
   try {
-    const { title, description, tech = [], link } = req.body
+    const { title, description, tech = [], githubLink, vercelLink, link } = req.body
 
     if (!title) {
       return res.status(400).json({ error: 'Title is required' })
@@ -27,7 +27,9 @@ router.post('/', requireAuth, async (req, res) => {
       title,
       description,
       tech,
-      link,
+      githubLink: githubLink || link,
+      vercelLink,
+      link: githubLink || link,
     })
 
     res.status(201).json(project)
@@ -39,7 +41,7 @@ router.post('/', requireAuth, async (req, res) => {
 // PUT /api/projects/:id
 router.put('/:id', requireAuth, async (req, res) => {
   try {
-    const { title, description, tech = [], link } = req.body
+    const { title, description, tech = [], githubLink, vercelLink, link } = req.body
 
     if (!title) {
       return res.status(400).json({ error: 'Title is required' })
@@ -47,7 +49,14 @@ router.put('/:id', requireAuth, async (req, res) => {
 
     const project = await Project.findByIdAndUpdate(
       req.params.id,
-      { title, description, tech, link },
+      {
+        title,
+        description,
+        tech,
+        githubLink: githubLink || link,
+        vercelLink,
+        link: githubLink || link,
+      },
       { new: true, runValidators: true }
     )
 

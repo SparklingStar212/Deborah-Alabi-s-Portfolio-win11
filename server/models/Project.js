@@ -4,6 +4,8 @@ const ProjectSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String },
   tech: { type: [String], default: [] },
+  githubLink: { type: String },
+  vercelLink: { type: String },
   link: { type: String },
   createdAt: { type: Date, default: Date.now },
 })
